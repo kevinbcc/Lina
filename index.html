@@ -225,7 +225,23 @@
             saveData();
         }
 
-        function showMessage(text) { dom.message.textContent = text; dom.message.classList.add('show'); setTimeout(() => { dom.message.classList.remove('show'); }, 3000); }
+        let messageTimer = null;
+
+        function showMessage(text) {
+            dom.message.textContent = text;
+            dom.message.classList.add('show');
+
+            // 清掉上一個倒數（如果有）
+            if (messageTimer !== null) {
+                clearTimeout(messageTimer);
+            }
+
+            // 設定新的倒數
+            messageTimer = setTimeout(() => {
+                dom.message.classList.remove('show');
+                messageTimer = null;
+            }, 3000);
+        }
         
         // ✨ 移除 updateQuote 函式
         
